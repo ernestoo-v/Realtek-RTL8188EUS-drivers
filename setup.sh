@@ -1,5 +1,4 @@
 #!/bin/bash
-# O usa #!/bin/zsh si prefieres zsh
 
 # Actualizar lista de paquetes
 sudo apt update
