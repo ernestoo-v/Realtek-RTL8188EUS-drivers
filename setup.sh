@@ -7,6 +7,7 @@ sudo apt update
 KERNEL_VERSION=$(uname -r)
 if [ ! -d "/usr/src/linux-headers-$KERNEL_VERSION" ]; then
     echo "Instalando linux-headers-$KERNEL_VERSION..."
+    sudo apt-get install -y bc
     sudo apt install -y bc linux-headers-$KERNEL_VERSION
     if [ $? -ne 0 ]; then
         echo "Error: No se pudieron instalar los headers."
