@@ -1,16 +1,36 @@
 #!/bin/bash
+# O usa #!/bin/zsh si prefieres zsh
 
+# Actualizar lista de paquetes
 sudo apt update
-#sudo apt upgrade
-sudo apt-get install -y bc linux-headers-$(uname -r)
 
-sudo rmmod r8188eu.ko
+# Verificar e instalar headers
+KERNEL_VERSION=$(uname -r)
+if [ ! -d "/usr/src/linux-headers-$KERNEL_VERSION" ]; then
+    echo "Instalando linux-headers-$KERNEL_VERSION..."
+    sudo apt install -y bc linux-headers-$KERNEL_VERSION
+    if [ $? -ne 0 ]; then
+        echo "Error: No se pudieron instalar los headers."
+        exit 1
+    fi
+else
+    echo "Los headers ya están instalados."
+fi
 
-cd drivers
-sudo -i
-echo "blacklist r8188eu.ko" > "/etc/modprobe.d/realtek.conf"
-exit
+# Eliminar módulo existente
+sudo rmmod r8188eu.ko 2>/dev/null || true
 
-make
-sudo make install
+# Entrar al directorio drivers
+cd drivers || { echo "Error: Directorio 'drivers' no encontrado."; exit 1; }
+
+# Escribir el archivo como root con tee
+echo "blacklist r8188eu.ko" | sudo tee /etc/modprobe.d/realtek.conf
+
+# Compilar e instalar driver
+make || { echo "Error en 'make'."; exit 1; }
+sudo make install || { echo "Error en 'make install'."; exit 1; }
+
+# Cargar el módulo
 sudo modprobe 8188eu
+
+echo "Instalación completada con éxito."
