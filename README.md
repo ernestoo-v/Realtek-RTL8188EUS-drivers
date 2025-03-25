@@ -1,16 +1,16 @@
-# Instalador y Configuración de la Antena WiFi Realtek RTL8188EUS
+# Realtek RTL8188EUS WiFi Antenna Installer and Configuration
 
-Este repositorio contiene los drivers para la antena WiFi **Realtek RTL8188EUS** y una serie de scripts que facilitan su instalación y configuración en sistemas Linux.  
-**Importante:** Los drivers que se encuentran en la carpeta `drivers` fueron obtenidos del repositorio original de https://github.com/aircrack-ng/rtl8188eus.
+This repository contains drivers for the Realtek RTL8188EUS WiFi antenna and a series of scripts that facilitate its installation and configuration on Linux systems.  
+**Important:** The drivers in the `drivers` folder were obtained from the original repository at https://github.com/aircrack-ng/rtl8188eus.
 
 [![Monitor mode](https://img.shields.io/badge/monitor%20mode-supported-brightgreen.svg)](#)
-[![Compatibilidad Linux](https://img.shields.io/badge/Linux-supported-brightgreen.svg)](#)
+[![Linux supported](https://img.shields.io/badge/Linux-supported-brightgreen.svg)](#)
 
 ---
-## Contenido del Repositorio
+## Repository Contents
 
 - **drivers/**  
-  Carpeta que contiene los drivers obtenidos de la fuente original.
+  Folder containing the drivers obtained from the original source.
 
 - **install_linux_headers.sh**  
 
@@ -20,74 +20,72 @@ Este repositorio contiene los drivers para la antena WiFi **Realtek RTL8188EUS**
 
 ---
 
-## Requisitos
+## Requirements
 
-- Distribución Linux basada en Debian/Ubuntu (se utiliza `apt` para la instalación de paquetes).
-- Permisos de superusuario (`sudo`).
-- Conexión a internet para actualizar paquetes y descargar dependencias.
+- Debian/Ubuntu-based Linux distribution (using `apt` for package installation).
+- Superuser permissions(`sudo`).
+- Internet connection to update packages and download dependencies.
 
 ---
 
-## Instrucciones de Instalación y Uso
+## Installation and Usage Instructions
 
-### 1. Clonar el Repositorio
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/ernestoo-v/Realtek-RTL8188EUS-drivers.git
 ```
 
-### 2. Acceder al Directorio del Repositorio
+### 2. Navigate to the Repository Directory
 
 ```bash
 cd REALTEK-RTL8188EUS
 ```
 
-### 3. Asignar Permisos de Ejecución a los Scripts
+### 3. Grant Execution Permissions to the Scripts
 
 ```bash
 chmod +x install_linux_headers.sh setup.sh startWifi.sh
 ```
 
-### 4. Ejecutar el Script para Instalar los Linux Headers
+### 4. Run the Script to Install Linux Headers
 
 ```bash
 ./install_linux_headers.sh
 ```
-> :warning: **Advertencia**: La instalación de `linux-headers-generic` modifica componentes críticos del sistema necesarios para compilar módulos del kernel. Asegúrate de que los headers instalados correspondan a tu versión actual del kernel. Si se instala una versión incompatible, podrías experimentar problemas de compilación o funcionamiento en el sistema.
+> :warning: **Warning**: Installing `linux-headers-generic` modifies critical system components needed to compile kernel modules. Make sure that the installed headers correspond to your current kernel version. If an incompatible version is installed, you may experience compilation or system functionality issues.
 
+### 5. Restart the System
+After installing the headers, restart your computer for the changes to take effect.
 
-### 5. Reiniciar el Sistema
-Después de instalar los headers, reinicia tu ordenador para que los cambios surtan efecto.
-
-
-### 6. Ejecutar el Script de Configuración y Compilación de los Drivers
+### 6. Run the Driver Configuration and Compilation Script
 
 ```bash
 ./setup.sh
 ```
-- Script encargado de: 
-  - Actualiza la lista de paquetes.
-  - Verifica e instala los linux headers específicos si es necesario.
-  - Elimina cualquier módulo conflictivo.
-  - Compila e instala el driver contenido en la carpeta `drivers`.
-  - Configura el sistema para evitar conflictos mediante la creación de un archivo de blacklist.
+- This script:
+  - Updates the package list.
+  - Checks for and installs specific Linux headers if necessary.
+  - Removes any conflicting modules.
+  - Compiles and installs the driver contained in the `drivers` folder. 
+  - Configures the system to avoid conflicts by creating a blacklist file.
 
-### 7. Ejecutar el Script de Configuración de la Antena WiFi
+### 7. Run the WiFi Antenna Configuration Script
 
 ```bash
 ./startWifi.sh
 ```
-- Script que realiza la configuración de la antena WiFi: 
-  - Carga el módulo `8188eu` para el chipset Realtek RTL8188EUS.
-  - Reinicia el servicio `NetworkManager`.
-  - Solicita al usuario desconectar y reconectar el adaptador WiFi USB.
-  - Espera a que la interfaz `wlan0` aparezca.
-  - Finaliza procesos que puedan interferir y activa el modo monitor en la interfaz.
+- This script configures the WiFi antenna by: 
+  - Loading the `8188eu` module for the Realtek RTL8188EUS chipset.
+  - Restarting the `NetworkManager` service.
+  - Prompting the user to disconnect and reconnect the USB WiFi adapter.
+  - Waiting for the `wlan0` interface to appear.
+  - Terminating processes that might interfere and activating monitor mode on the interface.
 
 
-## Créditos y Agradecimientos
+## Credits and Acknowledgements
 
-**Drivers**: Los drivers contenidos en la carpeta `drivers` fueron obtenidos del repositorio original de https://github.com/aircrack-ng/rtl8188eus.git. ¡Gracias por compartir y contribuir a la comunidad!
+**Drivers**: The drivers in the `drivers` folder were obtained from the original repository at https://github.com/aircrack-ng/rtl8188eus.git. Thank you for sharing and contributing to the community!
 
-**Desarrollo de Scripts**: Ernesto Villar
+**Script Development**: Ernesto Villar
 
